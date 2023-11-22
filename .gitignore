@@ -1,0 +1,4 @@
+install_docker.sh
+install_ansible.sh
+install_java.sh
+install_jenkins.sh
