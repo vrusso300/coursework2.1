@@ -19,10 +19,17 @@ node {
         script {
 
             def containerId = docker.image("vrusso300/coursework2").run("-d -p 8081:8080").id
-
-            // Stop and remove the container
-            sh "docker stop ${containerId}"
-            sh "docker rm -f --volumes ${containerId}"
+         
+            try {
+            
+                
+                sh 'echo $(curl localhost:8081:8080)'
+            }
+            finally{
+                // Stop and remove the container
+                sh "docker stop ${containerId}"
+                sh "docker rm -f --volumes ${containerId}"
+            }
         }
    }
 
