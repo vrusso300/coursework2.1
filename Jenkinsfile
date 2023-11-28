@@ -40,14 +40,21 @@ node {
                    to avoid pushing multiple tags unintentionally */
                 def imageTag = "${env.BUILD_NUMBER}"
                 app.push(imageTag)
-                /* Optionally, push with the 'latest' tag */
-                app.push("latest")
-
                 /* Also, print the image URL for reference */
                 echo "Docker image pushed to vrusso300/coursework2:${imageTag}"
             }
         }
     }
+
+    stage('Deploy to Kubernetes') {
+        script {
+            def credentials = credentials('my-ssh-key')
+            sshagent(credentials: [credentials]) {
+                sh "ssh -o StrictHostKeyChecking=no ubuntu@52.91.126.205 'kubectl set image deployments/cw2-deployment coursework2=vrusso300/coursework2:${imageTag}'"
+            }
+        }
+    }
+
 }
 
 
