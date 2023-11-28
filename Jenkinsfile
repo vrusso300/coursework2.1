@@ -29,7 +29,8 @@ node {
             docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials') {
                 /* When using 'app.push', it's better to specify the tag separately
                    to avoid pushing multiple tags unintentionally */
-                def imageTag = +1.0
+                def imageTag = "${env.BUILD_NUMBER}"
+		imageTag = imageTag.toFloat() + 1.0
                 app.push(imageTag)
                 /* Optionally, push with the 'latest' tag */
                 app.push("latest")
