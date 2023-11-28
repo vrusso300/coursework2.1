@@ -47,12 +47,15 @@ node {
     }
 
     stage('Deploy to Kubernetes') {
-    script {
-        withCredentials([sshUserPrivateKey(credentialsId: 'my-ssh-key', keyFileVariable: 'KEY_FILE')]) {
-            sh "ssh -o StrictHostKeyChecking=no -i $KEY_FILE ubuntu@35.153.52.155 'kubectl set image deployments/cw2-deployment coursework2=vrusso300/coursework2:${imageTag}'"
+
+        def imageTag = "${env.BUILD_NUMBER}"
+
+        script {
+            withCredentials([sshUserPrivateKey(credentialsId: 'my-ssh-key', keyFileVariable: 'KEY_FILE')]) {
+                sh "ssh -o StrictHostKeyChecking=no -i $KEY_FILE ubuntu@35.153.52.155 'kubectl set image deployments/cw2-deployment coursework2=vrusso300/coursework2:latest'"
+            }
         }
     }
-}
 
 
 }
