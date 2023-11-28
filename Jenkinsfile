@@ -18,13 +18,11 @@ node {
    stage('Run Container'){
         script {
 
-            def dockerImage = docker.image("vrusso300/coursework2")
-
-            def dockerContainer = dockerImage.run('-d --name coursework2container -p 8081:8080')
+            def containerId = docker.image("vrusso300/coursework2").run("-d -p 8081:8080").id
 
             // Stop and remove the container
-            dockerContainer.stop()
-            dockerContainer.remove(force: true)
+            sh "docker stop ${containerId}"
+            sh "docker rm -f --volumes ${containerId}"
         }
    }
 
