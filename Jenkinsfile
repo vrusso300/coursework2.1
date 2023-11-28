@@ -15,6 +15,19 @@ node {
         }
     }
 
+   stage('Run Container'){
+        script {
+
+            def dockerImage = docker.image("vrusso300/coursework2")
+
+            def dockerContainer = dockerImage.run('-d --name coursework2container -p 8081:8080')
+
+            // Stop and remove the container
+            dockerContainer.stop()
+            dockerContainer.remove(force: true)
+        }
+   }
+
     stage('Push image') {
         /* Use withDockerRegistry to handle Docker Hub authentication */
         script {
