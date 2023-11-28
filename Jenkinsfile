@@ -22,8 +22,7 @@ node {
          
             try {
             
-                
-                sh 'echo $(curl localhost:8081:8080)'
+                sh 'echo $(curl 100.26.222.157:8081)'
             }
             finally{
                 // Stop and remove the container
