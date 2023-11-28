@@ -21,8 +21,8 @@ node {
             def containerId = docker.image("vrusso300/coursework2").run("-d -p 8081:8080").id
          
             try {
-            
-                sh 'echo $(curl 100.26.222.157:8081)'
+
+                sh 'docker ps'
             }
             finally{
                 // Stop and remove the container
