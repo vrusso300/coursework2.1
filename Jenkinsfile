@@ -11,7 +11,7 @@ node {
         stage('Build and Test Image') {
             steps {
                 script {
-                    def app = docker.build("vrusso300/coursework2")
+                    app = docker.build("vrusso300/coursework2")
                     app.inside {
                         sh 'echo "Tests passed"'
                     }
