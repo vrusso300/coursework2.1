@@ -23,6 +23,7 @@ node {
             try {
 
                 sh 'docker ps'
+                sh "docker exec -i ${containerId} echo 'Success!'"
             }
             finally{
                 // Stop and remove the container
@@ -52,10 +53,9 @@ node {
 
         script {
             withCredentials([sshUserPrivateKey(credentialsId: 'my-ssh-key', keyFileVariable: "KEY_FILE")]) {
-               sh 'ssh -o StrictHostKeyChecking=no -i $KEY_FILE ubuntu@100.26.243.228 "kubectl set image deployments/cw2-deployment coursework2=vrusso300/coursework2:' + "${imageTag}" + '"'
+               sh 'ssh -o StrictHostKeyChecking=no -i $KEY_FILE ubuntu@54.158.206.118 "kubectl set image deployments/cw2-deployment coursework2=vrusso300/coursework2:' + "${imageTag}" + '"'
             }
         }
     }
 
 }
-
